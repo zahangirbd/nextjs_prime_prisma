@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: ./back_end
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+#    environment:
+#      DATABASE_URL: postgres://prisma:password@db:5432/prisma
+
+  db:
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: prisma
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: prisma
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
